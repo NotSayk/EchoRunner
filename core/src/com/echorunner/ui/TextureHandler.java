@@ -3,8 +3,6 @@ package com.echorunner.ui;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 /**
  * Handles texture rendering and management
