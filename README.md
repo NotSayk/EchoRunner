@@ -1,33 +1,33 @@
-# 🌀 Echo Runner
+# EchoRunner
 
-> _“Et si vous pouviez collaborer avec votre propre passé ?”_
+A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
-**Echo Runner** est un jeu de plateforme 2D développé en **Java** avec le framework **LibGDX**.  
-Le joueur contrôle un personnage capable d’enregistrer ses actions pendant quelques secondes — ces actions sont ensuite rejouées en boucle par un **écho temporel**, un clone fantomatique qui répète fidèlement les mouvements du passé.  
-Le joueur doit utiliser ces échos pour résoudre des puzzles, activer des interrupteurs et atteindre la sortie de chaque niveau.
+This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
 
----
+## Platforms
 
-## 🎯 Objectif du jeu
+- `core`: Main module with the application logic shared by all platforms.
+- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
 
-Chaque niveau est un puzzle à résoudre grâce à la synchronisation entre le joueur et ses clones :
-- Enregistrez vos actions au bon moment.  
-- Utilisez vos échos pour activer des mécanismes.  
-- Franchissez des zones inaccessibles seul.  
-- Terminez les niveaux en un minimum de temps et de tentatives !
+## Gradle
 
----
+This project uses [Gradle](https://gradle.org/) to manage dependencies.
+The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
+Useful Gradle tasks and flags:
 
-## 🧩 Fonctionnalités principales
+- `--continue`: when using this flag, errors will not stop the tasks from running.
+- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
+- `--offline`: when using this flag, cached dependency archives will be used.
+- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
+- `build`: builds sources and archives of every project.
+- `cleanEclipse`: removes Eclipse project data.
+- `cleanIdea`: removes IntelliJ project data.
+- `clean`: removes `build` folders, which store compiled classes and built archives.
+- `eclipse`: generates Eclipse project data.
+- `idea`: generates IntelliJ project data.
+- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
+- `lwjgl3:run`: starts the application.
+- `test`: runs unit tests (if any).
 
-- 🕹️ **Gameplay original** : mécanique d’enregistrement et de reproduction des actions.  
-- 👻 **Échos temporels** : jusqu’à 3 clones simultanés.  
-- 🧱 **Physique 2D** : collisions, plateformes, gravité.  
-- 🚪 **Puzzles variés** : interrupteurs, portes, pics, blocs.  
-- 💾 **Chargement dynamique** des niveaux via JSON.  
-- 🎨 **Pixel art minimaliste** et **musique d’ambiance**.  
-
----
-
-## 🧱 Structure du projet
-
+Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
+For example, `core:clean` removes `build` folder only from the `core` project.
