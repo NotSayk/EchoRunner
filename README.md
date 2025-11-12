@@ -2,9 +2,12 @@
 
 > _"Et si vous pouviez collaborer avec votre propre passé ?"_
 
-**Echo Runner** est un jeu de plateforme 2D innovant développé en **Java** avec le framework **LibGDX**.  
+**Echo Runner** est un jeu de plateforme 2D innovant développé en **Java 17** avec le framework **LibGDX 1.14.0**.  
 Contrôlez un personnage capable d'enregistrer ses actions pendant quelques secondes — ces actions sont ensuite rejouées en boucle par un **écho temporel**, un clone fantomatique qui répète fidèlement vos mouvements passés.  
 Utilisez ces échos pour résoudre des puzzles complexes, activer des interrupteurs et atteindre la sortie de chaque niveau.
+
+**📚 Projet académique** — BUT Informatique, 2ᵉ année — IUT du Havre  
+**🗓️ Année universitaire** — 2024-2025
 
 ---
 
@@ -32,25 +35,35 @@ Chaque niveau est un puzzle temporel à résoudre grâce à la synchronisation e
 ## 🧱 Structure du projet
 
 ```
-echo-runner/
-├── core/
-│   ├── src/com/echorunner/
-│   │   ├── EchoRunnerGame.java      # Point d'entrée principal
-│   │   ├── screens/                  # Écrans de jeu
-│   │   ├── entities/                 # Player, Echo, entités
-│   │   ├── world/                    # Gestion des niveaux
-│   │   ├── input/                    # Contrôles clavier
-│   │   ├── utils/                    # Utilitaires
-│   │   ├── audio/                    # Gestion audio
-│   │   └── ui/                       # Interface utilisateur
+EchoRunner/
+├── core/                             # Module principal du jeu
+│   ├── src/
+│   │   ├── com/echorunner/
+│   │   │   ├── EchoRunnerGame.java   # Point d'entrée principal
+│   │   │   ├── screens/              # Écrans de jeu (menu, gameplay, sélection)
+│   │   │   ├── entities/             # Player, Echo, Entity
+│   │   │   ├── world/                # Gestion des niveaux, tiles, portes, switches
+│   │   │   ├── input/                # Contrôles clavier (InputHandler)
+│   │   │   ├── utils/                # Utilitaires (Constants, ActionFrame)
+│   │   │   ├── audio/                # Gestion audio (Assets, SoundManager)
+│   │   │   └── ui/                   # Interface utilisateur (HUD)
+│   │   └── main/java/github/NotSayk/EchoRunner/
+│   │       └── EchoRunnerGame.java   # Classe principale alternative
 │   └── assets/
-│       ├── levels/                   # Fichiers JSON des niveaux
+│       ├── levels/                   # Fichiers JSON des niveaux (level1-3.json)
 │       ├── images/                   # Textures et sprites
 │       ├── sounds/                   # Effets sonores
 │       └── music/                    # Musiques de fond
-└── desktop/
-    └── src/com/echorunner/desktop/
-        └── DesktopLauncher.java      # Lanceur desktop
+├── lwjgl3/                           # Backend LWJGL3 (desktop moderne)
+│   └── src/main/java/github/NotSayk/EchoRunner/lwjgl3/
+│       ├── Lwjgl3Launcher.java       # Lanceur principal
+│       └── StartupHelper.java        # Helper de démarrage
+├── desktop/                          # Backend desktop legacy
+│   └── src/com/echorunner/desktop/
+│       └── DesktopLauncher.java      # Lanceur desktop alternatif
+├── build.gradle                      # Configuration Gradle racine
+├── settings.gradle                   # Modules Gradle
+└── start.sh                          # Script de lancement rapide
 ```
 
 ---
@@ -58,22 +71,38 @@ echo-runner/
 ## ⚙️ Installation et exécution
 
 ### 🔧 Prérequis
-- **Java 17** ou supérieur
-- **Gradle** (inclus via wrapper) ou IDE compatible (IntelliJ IDEA, Eclipse, VS Code)
-- **LibGDX** (géré automatiquement par Gradle)
+- **Java 17** (JDK 17 minimum requis)
+- **Gradle 8.x** (inclus via wrapper, aucune installation requise)
+- **LibGDX 1.14.0** (géré automatiquement par Gradle)
+- **LWJGL3** pour le rendu OpenGL
+- IDE recommandé : **IntelliJ IDEA**, Eclipse ou VS Code
 
 ### 🖥️ Cloner et exécuter le projet
 
 ```bash
 # Cloner le dépôt
-git clone https://github.com/<ton-utilisateur>/echo-runner.git
-cd echo-runner
+git clone https://github.com/NotSayk/EchoRunner.git
+cd EchoRunner
 
-# Lancer le jeu (avec Gradle)
-./gradlew desktop:run
+# Lancer le jeu avec Gradle (LWJGL3)
+./gradlew lwjgl3:run
+
+# Alternative : utiliser le script de lancement
+chmod +x start.sh
+./start.sh
+
+# Compiler le projet
+./gradlew build
 ```
 
-💡 **Windows** : Utilisez `gradlew.bat desktop:run`
+💡 **Windows** : Utilisez `gradlew.bat lwjgl3:run`
+
+### 🎮 Configuration de lancement
+Le jeu démarre avec une fenêtre de **640x480 pixels** par défaut.  
+Configuration modifiable dans `Lwjgl3Launcher.java` :
+- Résolution d'écran
+- VSync et limitation FPS
+- Icône de fenêtre
 
 ---
 
@@ -89,13 +118,25 @@ Le système d'échos repose sur l'enregistrement frame par frame des actions du 
 
 | Classe | Rôle |
 |--------|------|
-| `EchoRunnerGame` | Point d'entrée et gestionnaire principal |
+| `EchoRunnerGame` | Point d'entrée et gestionnaire principal du jeu |
+| `Lwjgl3Launcher` | Lanceur LWJGL3 avec configuration de la fenêtre |
 | `Player` | Gère les mouvements, l'enregistrement et la création d'échos |
 | `Echo` | Clone qui rejoue fidèlement les actions enregistrées |
+| `Entity` | Classe de base pour toutes les entités du jeu |
 | `Level` | Représente un niveau (plateformes, portes, interrupteurs) |
+| `LevelLoader` | Charge les niveaux depuis les fichiers JSON |
+| `Tile` | Gestion des tuiles et de la grille de jeu |
+| `Door` | Portes activables par les switches |
+| `Switch` | Interrupteurs à activer pour résoudre les puzzles |
 | `ActionFrame` | Stocke les données d'une frame enregistrée |
 | `GameScreen` | Boucle de jeu principale avec rendu et logique |
-| `AssetsManager` | Gestion centralisée des textures, sons et musiques |
+| `MainMenuScreen` | Menu principal du jeu |
+| `LevelSelectScreen` | Écran de sélection des niveaux |
+| `InputHandler` | Gestion centralisée des contrôles clavier |
+| `SoundManager` | Gestion des effets sonores et musiques |
+| `Assets` | Chargement centralisé des ressources |
+| `HUD` | Affichage de l'interface utilisateur en jeu |
+| `Constants` | Constantes globales du jeu |
 
 ---
 
@@ -107,32 +148,69 @@ Le système d'échos repose sur l'enregistrement frame par frame des actions du 
 
 ---
 
-## 🚀 Améliorations futures
+## 🚀 Roadmap et améliorations futures
 
-- 🛠️ **Éditeur de niveaux** intégré dans le jeu
+### Version 1.0 (Actuelle)
+- ✅ Moteur de jeu fonctionnel avec LibGDX
+- ✅ Système d'échos temporels
+- ✅ 3 niveaux de base
+- ✅ Menu principal et sélection de niveaux
+- ✅ Gestion audio (sons et musique)
+- ✅ Système de collision et physique
+
+### Version 1.1 (Prévue)
+- � **Éditeur de niveaux** intégré dans le jeu
+- 🎨 **Assets graphiques personnalisés** (sprites, animations)
+- 📊 **Système de statistiques** (temps, tentatives, échos utilisés)
+- 💾 **Sauvegarde de progression** persistante
+
+### Version 2.0 (Future)
 - ⏳ **Nouveaux types d'échos** (miroir, inversé, décalé temporellement)
-- 🌍 **Système de progression** avec sauvegarde persistante
-- 🏆 **Classement des temps** (leaderboard local)
-- 🎮 **Support manette** (gamepad)
+- 🏆 **Classement des temps** (leaderboard local et en ligne)
+- 🎮 **Support manette** (gamepad Xbox/PlayStation)
 - 🌐 **Mode multijoueur coopératif** en ligne
+- 🎵 **Bande-son originale** complète
 
 ---
 
-## 👨‍💻 Auteur
+## � Équipe de développement
 
-**👋 Samuel Ampeau**  
-Étudiant en 2ᵉ année de BUT Informatique – IUT du Havre  
-Passionné par la création de jeux vidéo et le développement logiciel
+Ce projet a été développé par une équipe de 4 étudiants en 2ᵉ année de BUT Informatique à l'IUT du Havre :
 
-📧 Contact : [ton-email@exemple.com](mailto:ton-email@exemple.com)  
-🔗 GitHub : [github.com/ton-utilisateur](https://github.com/ton-utilisateur)
+| Membre | Rôle |
+|--------|------|
+| **Samuel Ampeau** | Développeur | 
+| **Nichita Gutu** | Développeur | 
+| **Laurent Descourtis** | Développeur | 
+| **Matéo Cheveau** | Développeur  |
+
+📧 **Contact** : [Voir le dépôt GitHub](https://github.com/NotSayk/EchoRunner)  
+🔗 **GitHub du projet** : [github.com/NotSayk/EchoRunner](https://github.com/NotSayk/EchoRunner)
 
 ---
 
-## 📜 Licence
+## �️ Technologies utilisées
+
+| Technologie | Version | Usage |
+|-------------|---------|-------|
+| **Java** | 17 | Langage principal |
+| **LibGDX** | 1.14.0 | Framework de jeu 2D/3D |
+| **LWJGL3** | 3.x | Backend OpenGL natif |
+| **Gradle** | 8.x | Build automation |
+| **JSON** | - | Format des niveaux |
+
+### Dépendances principales
+- `com.badlogicgames.gdx:gdx` - Core LibGDX
+- `com.badlogicgames.gdx:gdx-backend-lwjgl3` - Backend desktop
+- `com.badlogicgames.gdx:gdx-platform` - Natives multiplateformes
+
+---
+
+
+## �📜 Licence
 
 Ce projet est distribué sous la **licence MIT**.  
-Vous pouvez l'utiliser, le modifier et le redistribuer librement, à condition de citer l'auteur original.
+Vous pouvez l'utiliser, le modifier et le redistribuer librement, à condition de citer les auteurs originaux.
 
 Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
@@ -146,4 +224,8 @@ Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
 ---
 
+
+
 **⭐ Si ce projet vous plaît, n'hésitez pas à lui donner une étoile sur GitHub !**
+
+**📝 Contributions** : Les pull requests sont les bienvenues pour améliorer le jeu !
