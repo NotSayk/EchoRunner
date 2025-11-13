@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.echorunner.EchoRunnerGame;
+import com.echorunner.Main;
 import com.echorunner.entities.Player;
 import com.echorunner.input.InputHandler;
 import com.echorunner.world.Level;
@@ -15,7 +15,7 @@ import com.echorunner.world.Level;
  * Main gameplay screen
  */
 public class GameScreen implements Screen {
-    private final EchoRunnerGame game;
+    private final Main game;
     private OrthographicCamera camera;
     private Viewport viewport;
     
@@ -23,7 +23,7 @@ public class GameScreen implements Screen {
     private Player player;
     private InputHandler inputHandler;
 
-    public GameScreen(EchoRunnerGame game) {
+    public GameScreen(Main game) {
         this.game = game;
         
         camera = new OrthographicCamera();

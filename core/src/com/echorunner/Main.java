@@ -8,7 +8,7 @@ import com.echorunner.screens.MainMenuScreen;
 /**
  * Main game class - Entry point for EchoRunner
  */
-public class EchoRunnerGame extends Game {
+public class Main extends Game {
     public SpriteBatch batch;
 
     @Override

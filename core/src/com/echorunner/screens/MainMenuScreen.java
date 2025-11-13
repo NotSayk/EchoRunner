@@ -7,17 +7,17 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.echorunner.EchoRunnerGame;
+import com.echorunner.Main;
 
 /**
  * Main menu screen
  */
 public class MainMenuScreen implements Screen {
-    private final EchoRunnerGame game;
+    private final Main game;
     private OrthographicCamera camera;
     private Stage stage;
 
-    public MainMenuScreen(EchoRunnerGame game) {
+    public MainMenuScreen(Main game) {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
