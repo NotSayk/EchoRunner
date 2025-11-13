@@ -1,6 +1,14 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
 
+sourceSets {
+  main {
+    java {
+      srcDirs = ['src']
+    }
+  }
+}
+
 dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
 

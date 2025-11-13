@@ -2,7 +2,7 @@ package github.NotSayk.EchoRunner.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import github.NotSayk.EchoRunner.EchoRunnerGame;
+import com.echorunner.EchoRunnerGame;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {

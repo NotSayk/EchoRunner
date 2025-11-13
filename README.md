@@ -37,32 +37,49 @@ Chaque niveau est un puzzle temporel à résoudre grâce à la synchronisation e
 ```
 EchoRunner/
 ├── core/                             # Module principal du jeu
-│   ├── src/
-│   │   ├── com/echorunner/
-│   │   │   ├── EchoRunnerGame.java   # Point d'entrée principal
-│   │   │   ├── screens/              # Écrans de jeu (menu, gameplay, sélection)
-│   │   │   ├── entities/             # Player, Echo, Entity
-│   │   │   ├── world/                # Gestion des niveaux, tiles, portes, switches
-│   │   │   ├── input/                # Contrôles clavier (InputHandler)
-│   │   │   ├── utils/                # Utilitaires (Constants, ActionFrame)
-│   │   │   ├── audio/                # Gestion audio (Assets, SoundManager)
-│   │   │   └── ui/                   # Interface utilisateur (HUD)
-│   │   └── main/java/github/NotSayk/EchoRunner/
-│   │       └── EchoRunnerGame.java   # Classe principale alternative
-│   └── assets/
-│       ├── levels/                   # Fichiers JSON des niveaux (level1-3.json)
-│       ├── images/                   # Textures et sprites
-│       ├── sounds/                   # Effets sonores
-│       └── music/                    # Musiques de fond
+│   ├── src/com/echorunner/
+│   │   ├── EchoRunnerGame.java       # Point d'entrée principal (extends Game)
+│   │   ├── screens/                  # Écrans de jeu
+│   │   │   ├── MainMenuScreen.java   # Menu principal
+│   │   │   ├── GameScreen.java       # Écran de gameplay
+│   │   │   └── LevelSelectScreen.java # Sélection de niveau
+│   │   ├── entities/                 # Entités du jeu
+│   │   │   ├── Entity.java           # Classe abstraite de base
+│   │   │   ├── Player.java           # Joueur contrôlable
+│   │   │   └── Echo.java             # Clone temporel / Onde sonore
+│   │   ├── world/                    # Gestion du monde
+│   │   │   ├── Level.java            # Niveau de jeu
+│   │   │   ├── LevelLoader.java      # Chargement des niveaux
+│   │   │   ├── Tile.java             # Tuiles/Blocs
+│   │   │   ├── Door.java             # Portes
+│   │   │   └── Switch.java           # Interrupteurs
+│   │   ├── input/                    # Gestion des contrôles
+│   │   │   └── InputHandler.java     # Entrées clavier/souris
+│   │   ├── audio/                    # Système audio
+│   │   │   ├── Assets.java           # Gestionnaire d'assets
+│   │   │   └── SoundManager.java     # Sons et musique
+│   │   ├── ui/                       # Interface utilisateur
+│   │   │   └── HUD.java              # Affichage tête haute
+│   │   └── utils/                    # Utilitaires
+│   │       ├── Constants.java        # Constantes du jeu
+│   │       └── ActionFrame.java      # Gestion des animations
+│   └── build.gradle                  # Configuration Gradle du module
+│
 ├── lwjgl3/                           # Backend LWJGL3 (desktop moderne)
-│   └── src/main/java/github/NotSayk/EchoRunner/lwjgl3/
-│       ├── Lwjgl3Launcher.java       # Lanceur principal
-│       └── StartupHelper.java        # Helper de démarrage
-├── desktop/                          # Backend desktop legacy
-│   └── src/com/echorunner/desktop/
-│       └── DesktopLauncher.java      # Lanceur desktop alternatif
+│   ├── src/main/java/github/NotSayk/EchoRunner/lwjgl3/
+│   │   ├── Lwjgl3Launcher.java       # Lanceur principal
+│   │   └── StartupHelper.java        # Helper de démarrage
+│   └── build.gradle                  # Configuration du launcher
+│
+├── assets/                           # Ressources du jeu
+│   ├── levels/                       # (à créer) Niveaux JSON
+│   ├── images/                       # (à créer) Textures et sprites
+│   ├── sounds/                       # (à créer) Effets sonores
+│   └── music/                        # (à créer) Musiques de fond
+│
 ├── build.gradle                      # Configuration Gradle racine
-├── settings.gradle                   # Modules Gradle
+├── settings.gradle                   # Modules Gradle (core, lwjgl3)
+├── gradle.properties                 # Propriétés du projet
 └── start.sh                          # Script de lancement rapide
 ```
 
