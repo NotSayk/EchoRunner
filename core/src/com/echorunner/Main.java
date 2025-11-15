@@ -1,34 +1,41 @@
 package com.echorunner;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.echorunner.screens.MainMenuScreen;
+import com.badlogic.gdx.Input;
+import com.echorunner.input.InputHandler;
+import com.echorunner.logic.ActionHandler;
+import com.echorunner.utils.ActionGroup;
 
 /**
  * Main game class - Entry point for EchoRunner
  */
-public class Main extends Game {
-    public SpriteBatch batch;
-
-    @Override
-    public void create() {
-        batch = new SpriteBatch();
-        // TODO: Initialize game systems
-        setScreen(new MainMenuScreen(this));
-        Gdx.app.log("EchoRunnerGame", "Game created");
+public class Main extends Game
+{
+    private enum actionTest implements ActionGroup
+    {
+        PROUT_MDR_AHAHAH
     }
 
     @Override
-    public void render() {
+    public void create()
+    {
+        InputHandler.init();
+
+        // ATTENTION : le clavier est Ici en Qwerty donc A => Q
+        // C'est un test de mon implementation des inputs clavier
+        InputHandler.registerKeyBind(Input.Keys.A, actionTest.PROUT_MDR_AHAHAH);
+        ActionHandler.registerAction(actionTest.PROUT_MDR_AHAHAH, () -> {System.out.println("PROUT AHAHA JSUIS UN ZGEG");});
+    }
+
+    @Override
+    public void render()
+    {
         super.render();
     }
 
     @Override
-    public void dispose() {
-        if (batch != null) {
-            batch.dispose();
-        }
+    public void dispose()
+    {
         super.dispose();
     }
 }

@@ -47,7 +47,7 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        /* game.batch.setProjectionMatrix(camera.combined); */
 
         stage.act(delta);
         stage.draw();

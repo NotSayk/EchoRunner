@@ -32,12 +32,12 @@ public class GameScreen implements Screen {
         
         // TODO: Initialize game objects
         player = new Player(100, 100);
-        inputHandler = new InputHandler(player);
+       /*  inputHandler = new InputHandler(player); */
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(inputHandler);
+        /* Gdx.input.setInputProcessor(inputHandler); */
         Gdx.app.log("GameScreen", "Game started");
     }
 
@@ -57,13 +57,13 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.setProjectionMatrix(camera.combined);
+        /* game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         
         // TODO: Render game objects
         player.render(game.batch);
         
-        game.batch.end();
+        game.batch.end(); */
     }
 
     @Override
