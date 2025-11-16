@@ -1,9 +1,15 @@
-package com.echorunner.utils;
+package com.echorunner.config;
 
 /**
  * Game constants and configuration values
  */
-public class Constants {
+public final class Constants
+{
+    public static final String ROOT_FOLDER = "../";
+
+    private static final String CONFIG_FILE_NAME = "config.cfg";
+
+    /* 
     // Screen dimensions
     public static final int SCREEN_WIDTH = 800;
     public static final int SCREEN_HEIGHT = 600;
@@ -39,7 +45,8 @@ public class Constants {
     // Debug
     public static final boolean DEBUG_MODE = true;
     public static final boolean SHOW_COLLISION_BOXES = true;
-    
+     */
+
     private Constants() {
         // Prevent instantiation
     }
