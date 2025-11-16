@@ -23,6 +23,8 @@ public class InputHandler
 	private static final InputMultiplexer multiplexer = new InputMultiplexer();
 	private static final KeyboardInputHandler keyboardHandler = new KeyboardInputHandler();
 
+	private InputHandler() {}
+
 	public static void init()
 	{
 		InputHandler.multiplexer.addProcessor(InputHandler.keyboardHandler);
