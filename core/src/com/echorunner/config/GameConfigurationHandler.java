@@ -25,12 +25,11 @@ public class GameConfigurationHandler
 
     public static final void save()
     {
-
     }
 
     public static final void load()
     {
-
+        GameConfigurationHandler.load();
     }
 
     /*

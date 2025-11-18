@@ -2,6 +2,9 @@ package com.echorunner;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.echorunner.input.InputHandler;
 import com.echorunner.logic.ActionHandler;
 import com.echorunner.utils.ActionGroup;
@@ -16,21 +19,25 @@ public class Main extends Game
         PROUT_MDR_AHAHAH
     }
 
+    private Texture sprite;
+    private SpriteBatch batch;
+
     @Override
     public void create()
     {
         InputHandler.init();
 
-        // ATTENTION : le clavier est Ici en Qwerty donc A => Q
-        // C'est un test de mon implementation des inputs clavier
-        InputHandler.registerKeyBind(Input.Keys.A, actionTest.PROUT_MDR_AHAHAH);
-        ActionHandler.registerAction(actionTest.PROUT_MDR_AHAHAH, () -> {System.out.println("PROUT AHAHA JSUIS UN ZGEG");});
+        this.sprite = new Texture("Main Characters/Pink Man/Run (32x32).png");
+        this.batch = new SpriteBatch();
     }
 
     @Override
     public void render()
     {
         super.render();
+        this.batch.begin();
+        this.batch.draw(this.sprite, 50, 50);
+        this.batch.end();
     }
 
     @Override
@@ -39,3 +46,8 @@ public class Main extends Game
         super.dispose();
     }
 }
+
+/*
+ * ASSETS JOUEUR 20FPS -> 50MS
+ * 
+*/
