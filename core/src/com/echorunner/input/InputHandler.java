@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
-
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerListener;
+import com.echorunner.input.InputTuple.InputState;
 import com.echorunner.logic.ActionHandler;
 import com.echorunner.utils.ActionGroup;
 
@@ -18,7 +18,7 @@ import com.echorunner.utils.ActionGroup;
 public class InputHandler
 {
 	// Input.Keys, Objects (Enum) implements ActionGroup
-	private static final Map<Integer, ActionGroup> keybindings = new HashMap<Integer, ActionGroup>();
+	private static final Map<InputTuple, ActionGroup> keybindings = new HashMap<InputTuple, ActionGroup>();
 
 	private static final InputMultiplexer multiplexer = new InputMultiplexer();
 	private static final KeyboardInputHandler keyboardHandler = new KeyboardInputHandler();
@@ -31,7 +31,7 @@ public class InputHandler
 		Gdx.input.setInputProcessor(InputHandler.multiplexer);
 	}
 
-	public static void registerKeyBind(Integer key, ActionGroup action)
+	public static void registerKeyBind(InputTuple key, ActionGroup action)
 	{
 		if ( key == null || action == null ) { return; }
 		if ( InputHandler.keybindings.containsKey(key) ) { InputHandler.removeKeyBind(key); }
@@ -39,12 +39,14 @@ public class InputHandler
 		InputHandler.keybindings.put(key, action);
 	}
 
-	public static void removeKeyBind(Integer key)
+	public static void removeKeyBind(int key, InputState state) { removeKeyBind( new InputTuple(key, state)); }
+	public static void removeKeyBind(InputTuple key)
 	{
 		InputHandler.keybindings.remove(key);
 	}
 
-	public static final ActionGroup getAction(Integer keybind)
+	public static final ActionGroup getAction(int key, InputState state) { return getAction( new InputTuple(key, state)); }
+	public static final ActionGroup getAction(InputTuple keybind)
 	{
 		return InputHandler.keybindings.get(keybind);
 	}
@@ -57,13 +59,14 @@ public class InputHandler
 	{
 		public boolean keyDown(int keycode)
 		{
-			ActionHandler.runAction(InputHandler.getAction(keycode));
+			ActionHandler.runAction(InputHandler.getAction(keycode, InputState.UP));
 			return true;
 		}
 
 		public boolean keyUp(int keycode)
 		{
-			return false;
+			ActionHandler.runAction(InputHandler.getAction(keycode, InputState.DOWN));
+			return true;
 		}
 
 		public boolean keyTyped(char character)
