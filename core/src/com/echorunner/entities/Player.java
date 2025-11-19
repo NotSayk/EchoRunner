@@ -1,7 +1,14 @@
 package com.echorunner.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.echorunner.input.InputHandler;
+import com.echorunner.input.InputTuple;
+import com.echorunner.input.InputTuple.InputState;
+import com.echorunner.logic.ActionHandler;
 import com.echorunner.ui.TextureHandler;
+import com.echorunner.utils.ActionGroup;
 
 /**
  * Player entity controlled by the user
@@ -16,11 +23,35 @@ public class Player extends Entity {
     private boolean grounded;
     private boolean canJump;
 
+    /*
+     * enum des déplacements
+     */
+
+    private enum Movement implements ActionGroup {
+        LEFT,
+        RIGHT,
+        JUMP,
+        STOP
+    }
+
     public Player(float x, float y) {
         super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
         this.grounded = false;
         this.canJump = true;
         this.textureHandler = new TextureHandler("Main Characters/Pink Man/Idle (32x32).png");
+        inputHandling();
+    }
+
+    private void inputHandling() {
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.A, InputState.DOWN), Movement.LEFT);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.A, InputState.UP), Movement.STOP);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.D, InputState.DOWN), Movement.RIGHT);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.D, InputState.UP), Movement.STOP);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.SPACE, InputState.DOWN), Movement.JUMP);
+        ActionHandler.registerAction(Movement.LEFT, () -> moveLeft());
+        ActionHandler.registerAction(Movement.RIGHT, () -> moveRight());
+        ActionHandler.registerAction(Movement.STOP, () -> stopMoving());
+        ActionHandler.registerAction(Movement.JUMP, () -> jump());
     }
 
     @Override
@@ -36,15 +67,24 @@ public class Player extends Entity {
     }
 
     public void moveLeft() {
+        textureHandler.changeSprite("Main Characters/Pink Man/Run (32x32).png", true);
         velocity.x = -MOVE_SPEED;
     }
 
     public void moveRight() {
+        textureHandler.changeSprite("Main Characters/Pink Man/Run (32x32).png", false);
         velocity.x = MOVE_SPEED;
     }
 
     public void stopMoving() {
-        velocity.x = 0;
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            moveLeft();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            moveRight();
+        } else {
+            textureHandler.changeSprite("Main Characters/Pink Man/Idle (32x32).png", false);
+            velocity.x = 0;
+        }
     }
 
     public void jump() {

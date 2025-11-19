@@ -18,7 +18,7 @@ public class TextureHandler
     public TextureHandler(String status)
     {        
         this.status = status;
-        changeSprite(this.status);
+        changeSprite(this.status, false);
     }
 
     public void update(float delta)
@@ -38,14 +38,21 @@ public class TextureHandler
         texture.dispose();
     }   
 
-    public void changeSprite(String newStatus)
+    public void changeSprite(String newStatus, boolean flipX)
     {
+
+    
         this.status = newStatus;
         if (texture != null) texture.dispose();
         texture = new Texture(this.status);
         TextureRegion[][] tmp = TextureRegion.split(texture, 32, 32);
         TextureRegion[] frames = new TextureRegion[tmp[0].length];
         System.arraycopy(tmp[0], 0, frames, 0, tmp[0].length);
+        if (flipX) {
+            for (int i = 0; i < frames.length; i++) {
+                frames[i].flip(true, false);
+            }
+        }
         animation = new Animation<>(0.05f, frames);
         animation.setPlayMode(Animation.PlayMode.LOOP);
     }

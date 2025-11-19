@@ -59,13 +59,13 @@ public class InputHandler
 	{
 		public boolean keyDown(int keycode)
 		{
-			ActionHandler.runAction(InputHandler.getAction(keycode, InputState.UP));
+			ActionHandler.runAction(InputHandler.getAction(keycode, InputState.DOWN));
 			return true;
 		}
 
 		public boolean keyUp(int keycode)
 		{
-			ActionHandler.runAction(InputHandler.getAction(keycode, InputState.DOWN));
+			ActionHandler.runAction(InputHandler.getAction(keycode, InputState.UP));
 			return true;
 		}
 

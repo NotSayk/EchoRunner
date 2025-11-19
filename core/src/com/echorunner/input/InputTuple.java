@@ -1,9 +1,7 @@
 package com.echorunner.input;
 
-public class InputTuple
-{
-    public enum InputState
-    {
+public class InputTuple {
+    public enum InputState {
         UP,
         DOWN
     }
@@ -11,27 +9,32 @@ public class InputTuple
     private final int key;
     private final InputState state;
 
-    public InputTuple( int key, InputState state )
-    {
+    public InputTuple(int key, InputState state) {
         this.key = key;
         this.state = state;
     }
 
-    public int getKey()
-    {
+    public int getKey() {
         return this.key;
     }
-    public InputState getState()
-    {
+
+    public InputState getState() {
         return this.state;
     }
 
-    public boolean equals(Object obj)
-    {
-        if ( !(obj instanceof InputTuple) ) { return false; }
-        
-        InputTuple tuple = (InputTuple)(obj);
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof InputTuple)) {
+            return false;
+        }
+
+        InputTuple tuple = (InputTuple) (obj);
 
         return this.key == tuple.key && this.state == tuple.state;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * key + state.hashCode();
     }
 }
