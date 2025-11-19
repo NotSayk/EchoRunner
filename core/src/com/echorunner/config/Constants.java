@@ -7,7 +7,7 @@ public final class Constants
 {
     public static final String ROOT_FOLDER = "../";
 
-    private static final String CONFIG_FILE_NAME = "config.cfg";
+    public static final String CONFIG_FILE_NAME = "config.cfg";
 
     /* 
     // Screen dimensions

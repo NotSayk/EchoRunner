@@ -1,5 +1,9 @@
 package com.echorunner.config;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class GameConfigurationHandler
@@ -8,28 +12,29 @@ public class GameConfigurationHandler
 
     private GameConfigurationHandler() {}
 
-    public static final Object getInfo()
+    public static final Object getInfo( String elt )
     {
-        return null;
+        return GameConfigurationHandler.config.get( elt );
     }
 
-    public static void setInfo()
+    public static void setInfo( String elt, String value )
     {
-
+        GameConfigurationHandler.config.setProperty(elt, value);
     }
 
     public static void createConfigFile()
     {
-
+        
     }
 
-    public static final void save()
+    public static final void save() throws FileNotFoundException, IOException
     {
+        GameConfigurationHandler.config.store(new FileOutputStream(Constants.ROOT_FOLDER + Constants.CONFIG_FILE_NAME) , "Config file");
     }
 
-    public static final void load()
+    public static final void load() throws FileNotFoundException, IOException
     {
-        GameConfigurationHandler.load();
+        GameConfigurationHandler.config.load(new FileInputStream(Constants.ROOT_FOLDER + Constants.CONFIG_FILE_NAME));
     }
 
     /*
