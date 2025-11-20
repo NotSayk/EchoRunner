@@ -44,10 +44,15 @@ public class Player extends Entity {
     }
 
     private void inputHandling() {
-        InputHandler.registerKeyBind(new InputTuple(Input.Keys.A, InputState.DOWN), Movement.LEFT);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.A , InputState.DOWN), Movement.LEFT);
         InputHandler.registerKeyBind(new InputTuple(Input.Keys.A, InputState.UP), Movement.STOP);
         InputHandler.registerKeyBind(new InputTuple(Input.Keys.D, InputState.DOWN), Movement.RIGHT);
         InputHandler.registerKeyBind(new InputTuple(Input.Keys.D, InputState.UP), Movement.STOP);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.LEFT , InputState.DOWN), Movement.LEFT);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.LEFT, InputState.UP), Movement.STOP);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.RIGHT, InputState.DOWN), Movement.RIGHT);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.RIGHT, InputState.UP), Movement.STOP);
+        InputHandler.registerKeyBind(new InputTuple(Input.Keys.UP, InputState.DOWN), Movement.JUMP);
         InputHandler.registerKeyBind(new InputTuple(Input.Keys.SPACE, InputState.DOWN), Movement.JUMP);
         ActionHandler.registerAction(Movement.LEFT, () -> moveLeft());
         ActionHandler.registerAction(Movement.RIGHT, () -> moveRight());
@@ -104,9 +109,9 @@ public class Player extends Entity {
     }
 
     public void stopMoving() {
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             moveLeft();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             moveRight();
         } else {
             textureHandler.changeSprite("Main Characters/Pink Man/Idle (32x32).png");
