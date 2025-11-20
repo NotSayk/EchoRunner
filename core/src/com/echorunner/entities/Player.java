@@ -18,9 +18,9 @@ public class Player extends Entity {
     private static final float PLAYER_HEIGHT = 32f;
     private static final float MOVE_SPEED = 200f;
     private static final float JUMP_VELOCITY = 500f;
+    private boolean canDoubleJump;
 
     private TextureHandler textureHandler;
-
     private boolean grounded;
     private boolean canJump;
 
@@ -39,6 +39,7 @@ public class Player extends Entity {
         super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
         this.grounded = false;
         this.canJump = true;
+        this.canDoubleJump=false;
         this.textureHandler = new TextureHandler("Main Characters/Pink Man/Idle (32x32).png");
         inputHandling();
     }
@@ -83,9 +84,13 @@ public class Player extends Entity {
             }
         } else {
             grounded = false;
-            if (velocity.y > 0) {
+            if (velocity.y > 0&& canDoubleJump == true) {
                 textureHandler.changeSprite("Main Characters/Pink Man/Jump (32x32).png");
-            } else {
+            }
+            if(velocity.y > 0&& canDoubleJump == false){
+                textureHandler.changeSprite("Main Characters/Pink Man/Double Jump (32x32).png");
+            }
+             else {
                 textureHandler.changeSprite("Main Characters/Pink Man/Fall (32x32).png");
             }
         }
@@ -124,6 +129,13 @@ public class Player extends Entity {
             velocity.y = JUMP_VELOCITY;
             grounded = false;
             canJump = false;
+            canDoubleJump=true;
+        }
+        else if (!grounded && !canJump && canDoubleJump){
+            velocity.y = JUMP_VELOCITY;
+            grounded = false;
+            canJump = false;
+            canDoubleJump= false;
         }
     }
 
