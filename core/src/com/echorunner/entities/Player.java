@@ -78,6 +78,11 @@ public class Player extends Entity {
             }
         } else {
             grounded = false;
+            if (velocity.y > 0) {
+                textureHandler.changeSprite("Main Characters/Pink Man/Jump (32x32).png");
+            } else {
+                textureHandler.changeSprite("Main Characters/Pink Man/Fall (32x32).png");
+            }
         }
 
         updateBounds();
@@ -111,7 +116,6 @@ public class Player extends Entity {
 
     public void jump() {
         if (grounded && canJump) {
-            textureHandler.changeSprite("Main Characters/Pink Man/Jump (32x32).png");
             velocity.y = JUMP_VELOCITY;
             grounded = false;
             canJump = false;
