@@ -18,6 +18,7 @@ public class Player extends Entity {
     private static final float PLAYER_HEIGHT = 32f;
     private static final float MOVE_SPEED = 200f;
     private static final float JUMP_VELOCITY = 500f;
+
     private TextureHandler textureHandler;
 
     private boolean grounded;
@@ -57,7 +58,28 @@ public class Player extends Entity {
     @Override
     public void update(float delta) {
         textureHandler.update(delta);
+
+        if (!grounded) {
+            velocity.y -= GRAVITY * delta;
+        }
+
         position.add(velocity.x * delta, velocity.y * delta);
+
+        if (position.y <= 10) {
+            position.y = 10;
+            grounded = true;
+            canJump = true;
+            velocity.y = 0;
+
+            if (velocity.x != 0) {
+                textureHandler.changeSprite("Main Characters/Pink Man/Run (32x32).png", velocity.x < 0);
+            } else {
+                textureHandler.changeSprite("Main Characters/Pink Man/Idle (32x32).png");
+            }
+        } else {
+            grounded = false;
+        }
+
         updateBounds();
     }
 
@@ -82,15 +104,17 @@ public class Player extends Entity {
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             moveRight();
         } else {
-            textureHandler.changeSprite("Main Characters/Pink Man/Idle (32x32).png", false);
+            textureHandler.changeSprite("Main Characters/Pink Man/Idle (32x32).png");
             velocity.x = 0;
         }
     }
 
     public void jump() {
         if (grounded && canJump) {
+            textureHandler.changeSprite("Main Characters/Pink Man/Jump (32x32).png");
             velocity.y = JUMP_VELOCITY;
             grounded = false;
+            canJump = false;
         }
     }
 

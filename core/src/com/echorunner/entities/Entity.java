@@ -12,6 +12,7 @@ public abstract class Entity {
     protected Vector2 velocity;
     protected Rectangle bounds;
     protected boolean active;
+    public static final float GRAVITY = 1200f;
 
     public Entity(float x, float y, float width, float height) {
         this.position = new Vector2(x, y);

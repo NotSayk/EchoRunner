@@ -13,6 +13,7 @@ public class TextureHandler
     private String status;
     private Animation<TextureRegion> animation;
     private float stateTime = 0;
+    private boolean flipX = false;
 
     
     public TextureHandler(String status)
@@ -38,10 +39,14 @@ public class TextureHandler
         texture.dispose();
     }   
 
+    public void changeSprite(String newStatus)
+    {
+        changeSprite(newStatus, this.flipX);
+    }
+
     public void changeSprite(String newStatus, boolean flipX)
     {
-
-    
+        this.flipX = flipX;
         this.status = newStatus;
         if (texture != null) texture.dispose();
         texture = new Texture(this.status);
