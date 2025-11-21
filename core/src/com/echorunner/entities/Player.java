@@ -64,9 +64,15 @@ public class Player extends Entity {
     @Override
     public void update(float delta) {
         textureHandler.update(delta);
-
         if (!grounded) {
             velocity.y -= GRAVITY * delta;
+        }
+
+        if (position.x < 0) {
+            position.x = 0;
+        }
+        if (position.x > Gdx.graphics.getWidth() - PLAYER_WIDTH) {
+            position.x = Gdx.graphics.getWidth() - PLAYER_WIDTH;
         }
 
         position.add(velocity.x * delta, velocity.y * delta);
@@ -124,6 +130,7 @@ public class Player extends Entity {
         }
     }
 
+
     public void jump() {
         if (grounded && canJump) {
             velocity.y = JUMP_VELOCITY;
@@ -140,6 +147,9 @@ public class Player extends Entity {
     }
 
     public void emitEcho() {
+    }
+
+    public void setHit() {
     }
 
     public boolean isGrounded() {

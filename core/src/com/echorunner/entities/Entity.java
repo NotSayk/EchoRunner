@@ -29,7 +29,6 @@ public abstract class Entity {
         bounds.setPosition(position);
     }
 
-    // Getters and setters
     public Vector2 getPosition() {
         return position;
     }
